@@ -34,7 +34,7 @@
       community.docker.docker_container:
         name: my-api
         state: absent
-        ignore_errors: true
+        #ignore_errors: true
 
     - name: Run Flask container
       docker_container:
