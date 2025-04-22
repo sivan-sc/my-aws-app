@@ -2,12 +2,7 @@
   hosts: localhost
   become: true
 
-  tasks:
-    - name: Update packages
-      yum:
-        name: "*"
-        state: latest
-
+  tasks:  
     - name: Install Docker
       yum:
         name: docker
@@ -23,11 +18,19 @@
  #     docker_image:
   #      name: your-dockerhub-user/flask-api
    #     source: pull
+   #
+    - name: build Flask app image
+      docker_image:
+        name: my-api
+        tag: "{{ version }}"
+        source: build
+        build:
+          path: ../app/
 
     - name: Run Flask container
       docker_container:
-        name: flask-api
-        image: flask-api:1.0
+        name: my-api
+        image: "my-api:{{ version }}"
         ports:
           - "80:5000"
         state: started
