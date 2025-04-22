@@ -15,7 +15,7 @@ jobs:
 
       - name: Get short commit hash
         id: vars
-        run: echo "$(git rev-parse --short HEAD)" >> $GIT_COMMIT
+        run: echo "GIT_COMMIT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - name: Run Ansible Playbook on EC2
         uses: appleboy/ssh-action@master
@@ -26,5 +26,4 @@ jobs:
           script: |
             cd /home/ec2-user/my-aws-app
             git pull
-            echo ${GIT_COMMIT}
-            ansible-playbook ansible/playbook.yml -e "image_tag=${GIT_COMMIT}"
+            ansible-playbook ansible/playbook.yml -e "image_tag=${{ env.GIT_COMMIT }}"
