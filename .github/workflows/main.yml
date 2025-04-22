@@ -15,8 +15,7 @@ jobs:
 
       - name: Get short commit hash
         id: vars
-        run: echo "GIT_COMMIT=$(git rev-parse --short HEAD)"
-        run: echo "GIT_COMMIT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        run: echo "GIT_COMMIT=$(git rev-parse --short HEAD)" 
 
       - name: Run Ansible Playbook on EC2
         uses: appleboy/ssh-action@master
