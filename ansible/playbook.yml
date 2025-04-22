@@ -1,0 +1,34 @@
+- name: Deploy Flask API to EC2
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Update packages
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Install Docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start Docker
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+#    - name: Pull Docker image
+ #     docker_image:
+  #      name: your-dockerhub-user/flask-api
+   #     source: pull
+
+    - name: Run Flask container
+      docker_container:
+        name: flask-api
+        image: flask-api:1.0
+        ports:
+          - "80:5000"
+        state: started
+
