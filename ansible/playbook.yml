@@ -2,6 +2,9 @@
   hosts: localhost
   become: true
 
+  vars:
+    image_tag: "{{ image_tag | default('latest') }}"
+    
   tasks:  
     - name: Install Docker
       yum:
@@ -22,15 +25,21 @@
     - name: build Flask app image
       docker_image:
         name: my-api
-        tag: "{{ version }}"
+        tag: "{{ image_tag }}"
         source: build
         build:
           path: ../app/
 
+    - name: Stop old container (if exists)
+      community.docker.docker_container:
+        name: "{{ image_name }}"
+        state: absent
+        ignore_errors: true
+
     - name: Run Flask container
       docker_container:
         name: my-api
-        image: "my-api:{{ version }}"
+        image: "my-api:{{ image_tag }}"
         ports:
           - "80:5000"
         state: started
