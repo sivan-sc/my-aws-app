@@ -31,7 +31,7 @@ jobs:
         docker tag my-api:$IMAGE_TAG 732095247734.dkr.ecr.us-east-1.amazonaws.com/my-aws-app/my-api:$IMAGE_TAG
         docker push 732095247734.dkr.ecr.us-east-1.amazonaws.com/my-aws-app/my-api:$IMAGE_TAG
 
-#    - name: Run Ansible to update ECS task
- #     run: |
-  #      ansible-playbook deploy-to-ecs.yml -e image_tag=$(git rev-parse --short HEAD)
+    - name: Run Ansible to update ECS task
+      run: |
+        ansible-playbook deploy-ecs.yml -e image_tag=$(git rev-parse --short HEAD)
 
