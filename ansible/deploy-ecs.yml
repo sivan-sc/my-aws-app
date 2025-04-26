@@ -22,6 +22,7 @@
                   hostPort: 5000
                   protocol: tcp
         region: eu-north-1
+        state: present
 
     - name: Update ECS service
       community.aws.ecs_service:
