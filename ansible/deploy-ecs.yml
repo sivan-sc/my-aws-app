@@ -2,7 +2,7 @@
   hosts: localhost
   connection: local
   vars:
-    ecs_cluster: "flask-app"
+    ecs_cluster: "devCluster"
     ecs_service: "flask-app-service-3f7o50y4"
     container_name: "my-api"
     image_repo: "732095247734.dkr.ecr.us-east-1.amazonaws.com/my-aws-app/my-api"
