@@ -36,6 +36,11 @@ jobs:
       run: |
         pipx inject ansible-core boto3 botocore
 
+    - name: Install latest community.aws collection
+      run: |
+        ansible-galaxy collection install community.aws --force
+
+
     - name: Run Ansible to update ECS task
       run: |
         ansible-playbook ansible/deploy-ecs.yml -e image_tag=$(git rev-parse --short HEAD)
