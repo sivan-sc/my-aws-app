@@ -30,11 +30,6 @@
         state: present
       register: task_def_out
 
-    - name: Debug ECS task definition output
-      debug:
-        var: task_def_out
-
-
     - name: Update ECS service
       community.aws.ecs_service:
         name: "{{ ecs_service }}"
