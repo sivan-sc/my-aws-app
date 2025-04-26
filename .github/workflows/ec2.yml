@@ -2,8 +2,7 @@ name: Deploy to EC2
 
 on:
   push:
-    branches:
-      #- main  # or whichever branch you use
+    branches: ['main'] 
 
 jobs:
   deploy:
@@ -26,4 +25,4 @@ jobs:
           script: |
             cd /home/ec2-user/my-aws-app
             git pull
-            ansible-playbook ansible/playbook.yml -e "image_tag=${{ env.GIT_COMMIT }}"
+            ansible-playbook ansible/deploy-ec2.yml -e "image_tag=${{ env.GIT_COMMIT }}"
