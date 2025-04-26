@@ -43,13 +43,12 @@
         desired_count: 1
         launch_type: FARGATE
         network_configuration:
-          awsvpc_configuration:
-            subnets:
-              - subnet-024bad37e2fe12ca5 
-              - subnet-04a6758938e0a3ca2 
-              - subnet-0e26f8a1bb629fad6
-            security_groups:
-              - sg-08736ffd0252f61e2
-            assign_public_ip: yes
+          subnets:
+            - subnet-024bad37e2fe12ca5 
+            - subnet-04a6758938e0a3ca2 
+            - subnet-0e26f8a1bb629fad6
+          security_groups:
+            - sg-08736ffd0252f61e2
+          assign_public_ip: yes
         state: present
         region: eu-north-1
