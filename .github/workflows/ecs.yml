@@ -32,9 +32,9 @@ jobs:
         docker push 732095247734.dkr.ecr.us-east-1.amazonaws.com/my-aws-app/my-api:$IMAGE_TAG
 
     # install dependencies of aws ansible collection
-    - name: Install boto3 and botocore
+    - name: Install boto3 and botocore inside Ansible environment
       run: |
-        pip install boto3 botocore
+        pipx inject ansible-core boto3 botocore
 
     - name: Run Ansible to update ECS task
       run: |
