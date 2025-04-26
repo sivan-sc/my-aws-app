@@ -9,16 +9,18 @@
     image_tag: "{{ image_tag }}"
 
   tasks:
+    # create new task revision
     - name: Edit ECS task definition to use new image
       community.aws.ecs_taskdefinition:
         family: flask-app
-        container_definitions: "[{
-          \"name\": \"{{ container_name }}\",
-          \"image\": \"{{ image_repo }}:{{ image_tag }}\",
-          \"essential\": true,
-          \"portMappings\": [{\"containerPort\": 5000}]
-        }]"
-        state: present
+        containers: 
+          - name: "{{ container_name }}"
+            image: "{{ image_repo }}:{{ image_tag }}"
+            "essential": true
+            "portMappings": 
+                - containerPort: 5000
+                  hostPort: 5000
+                  protocol: tcp
         region: eu-north-1
 
     - name: Update ECS service
