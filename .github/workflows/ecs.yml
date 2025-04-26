@@ -33,5 +33,5 @@ jobs:
 
     - name: Run Ansible to update ECS task
       run: |
-        ansible-playbook deploy-ecs.yml -e image_tag=$(git rev-parse --short HEAD)
+        ansible-playbook ansible/deploy-ecs.yml -e image_tag=$(git rev-parse --short HEAD)
 
