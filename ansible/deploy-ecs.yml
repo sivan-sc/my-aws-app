@@ -14,8 +14,6 @@
       community.aws.ecs_taskdefinition:
         family: flask-app
         network_mode: awsvpc
-        requires_compatibilities:
-          - FARGATE
         cpu: 256
         memory: 512
         execution_role_arn: arn:aws:iam::732095247734:role/ecsTaskExecutionRole
