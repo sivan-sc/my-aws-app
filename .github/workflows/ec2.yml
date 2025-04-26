@@ -3,7 +3,6 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      #- deploy_ecs
       #- main  # or whichever branch you use
 
 jobs:
