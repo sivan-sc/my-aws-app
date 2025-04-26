@@ -27,7 +27,7 @@ jobs:
     - name: Build, tag and push Docker image
       run: |
         IMAGE_TAG=$(git rev-parse --short HEAD)
-        docker build -t my-api:$IMAGE_TAG -f app/Dockerfile
+        docker build -t my-api:$IMAGE_TAG -f app/Dockerfile .
         docker tag my-api:$IMAGE_TAG 732095247734.dkr.ecr.us-east-1.amazonaws.com/my-aws-app/my-api:$IMAGE_TAG
         docker push 732095247734.dkr.ecr.us-east-1.amazonaws.com/my-aws-app/my-api:$IMAGE_TAG
 
