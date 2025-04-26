@@ -34,7 +34,7 @@
       community.aws.ecs_service:
         name: "{{ ecs_service }}"
         cluster: "{{ ecs_cluster }}"
-        task_definition: "{{ task_def_out.task_definition.task_definition_arn }}"
+        task_definition: "{{ task_def_out.task_definition_arn }}"
         desired_count: 1
         launch_type: FARGATE
         network_configuration:
