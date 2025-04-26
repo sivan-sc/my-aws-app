@@ -28,7 +28,7 @@
                   protocol: tcp
         region: eu-north-1
         state: present
-        register: task_def_out
+      register: task_def_out
 
     - name: Update ECS service
       community.aws.ecs_service:
