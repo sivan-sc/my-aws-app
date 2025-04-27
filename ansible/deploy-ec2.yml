@@ -17,11 +17,6 @@
         state: started
         enabled: true
 
-#    - name: Pull Docker image
- #     docker_image:
-  #      name: your-dockerhub-user/flask-api
-   #     source: pull
-   #
     - name: build Flask app image
       docker_image:
         name: my-api

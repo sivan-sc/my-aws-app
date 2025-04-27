@@ -1,0 +1,47 @@
+name: Deploy Flask to ECS
+
+on:
+  push:
+    branches: [deploy_ecs]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Log in to Amazon ECR
+      run: |
+        aws ecr get-login-password --region us-east-1 | \
+        docker login --username AWS --password-stdin 732095247734.dkr.ecr.us-east-1.amazonaws.com
+
+    - name: Build, tag and push Docker image
+      run: |
+        IMAGE_TAG=$(git rev-parse --short HEAD)
+        docker build -t my-api:$IMAGE_TAG -f app/Dockerfile .
+        docker tag my-api:$IMAGE_TAG 732095247734.dkr.ecr.us-east-1.amazonaws.com/my-aws-app/my-api:$IMAGE_TAG
+        docker push 732095247734.dkr.ecr.us-east-1.amazonaws.com/my-aws-app/my-api:$IMAGE_TAG
+
+    # install dependencies of aws ansible collection
+    - name: Install boto3 and botocore inside Ansible environment
+      run: |
+        pipx inject ansible-core boto3 botocore
+
+    - name: Install latest community.aws collection
+      run: |
+        ansible-galaxy collection install community.aws --force
+
+
+    - name: Run Ansible to update ECS task
+      run: |
+        ansible-playbook ansible/deploy-ecs.yml -e image_tag=$(git rev-parse --short HEAD)
+
