@@ -4,7 +4,6 @@ import os
 
 app = Flask(__name__)
 
-# Replace these with your actual AWS RDS PostgreSQL credentials
 DB_USER = os.getenv("DB_USER", "postgres")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "1q2w3e4r")
 DB_HOST = os.getenv("DB_HOST", "database-1.c5gcke4e089r.eu-north-1.rds.amazonaws.com")
