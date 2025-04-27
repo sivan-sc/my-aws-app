@@ -9,7 +9,7 @@
     image_tag: "{{ image_tag }}"
 
   tasks:
-    # create new task revision
+    # new task revision
     - name: Edit ECS task definition to use new image
       community.aws.ecs_taskdefinition:
         family: flask-app
